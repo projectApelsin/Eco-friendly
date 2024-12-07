@@ -1,0 +1,223 @@
+body {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+
+p {
+  margin: 0;
+}
+
+.header__container {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+.header__content {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header__search {
+  position: relative;
+}
+.header__search-input {
+  background-color: rgba(189, 255, 187, 0.3);
+  border: none;
+  width: 690px;
+  height: 52px;
+  outline: none;
+  padding-left: 48px;
+  font-size: 16px;
+  line-height: 18px;
+}
+.header__search-input:focus {
+  border: none;
+  box-shadow: none;
+}
+.header__search-icon {
+  position: absolute;
+  left: 16px;
+  top: 14px;
+}
+.header__actions {
+  display: flex;
+  justify-content: space-between;
+  max-width: 160px;
+  width: 100%;
+}
+.header__actions img {
+  cursor: pointer;
+}
+
+.categories__container {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+.categories__content {
+  max-width: 1280px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.categories__item {
+  background-color: rgb(5, 160, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 0;
+  border-radius: 8px;
+  max-width: 229px;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.3s box-shadow;
+}
+.categories__item:hover {
+  box-shadow: 0px 4px 20px 2px rgba(0, 0, 0, 0.32);
+}
+.categories__item-text {
+  margin-right: 8px;
+  color: rgb(254, 255, 254);
+}
+
+.category {
+  margin-bottom: 80px;
+}
+.category__header-container {
+  max-width: 1280px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto 32px auto;
+}
+.category__header-title {
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 600;
+}
+.category__header-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.category__header-link:hover {
+  text-decoration: underline;
+}
+.category__header-link-text {
+  color: #000;
+  margin-right: 8px;
+  transition: 0.3s text-decoration;
+}
+.category__items-container {
+  max-width: 1280px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+.category__item {
+  max-width: 308px;
+  width: 100%;
+}
+.category__item-image {
+  position: relative;
+  width: 100%;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.category__item-icon {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  cursor: pointer;
+}
+.category__item-bottom {
+  background-color: rgba(189, 255, 187, 0.3);
+  padding: 24px 16px;
+}
+.category__item-name {
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 16px;
+}
+.category__item-stars {
+  display: flex;
+  padding: 0;
+  margin: 0 0 24px 0;
+}
+.category__item-stars-item {
+  list-style: none;
+  padding: 0;
+  margin-right: 4px;
+  cursor: pointer;
+}
+.category__item-actions {
+  display: flex;
+  justify-content: space-between;
+}
+.category__item-actions-prices {
+  max-width: 140px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  line-height: 26px;
+}
+.category__item-actions-value {
+  color: #000;
+}
+.category__item-actions-old {
+  color: rgb(197, 197, 197);
+  position: relative;
+}
+.category__item-actions-old:before {
+  content: "";
+  border-bottom: 2px solid rgb(197, 197, 197);
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  transform: rotate(-12deg);
+  top: -2px;
+}
+
+.footer {
+  background-color: rgba(189, 255, 187, 0.3);
+  font-family: "Inter", sans-serif;
+}
+.footer__container {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 80px 0;
+  align-items: center;
+}
+.footer__content {
+  display: flex;
+  justify-content: space-between;
+  max-width: 680px;
+  width: 100%;
+}
+.footer__content-item {
+  max-width: 233px;
+  width: 100%;
+}
+.footer__content-item-title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 30px;
+  margin-bottom: 24px;
+}
+.footer__content-item-text {
+  font-size: 16px;
+  line-height: 20px;
+}
+.footer__content-item-text:not(:last-child) {
+  margin-bottom: 16px;
+}
+
+/*# sourceMappingURL=style.css.map */
