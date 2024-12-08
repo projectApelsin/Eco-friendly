@@ -94,8 +94,8 @@ function App() {
   return (
     <>
     <Router>
-    <PageBuilderComponent data = {productGroups}/>
-    
+    {//<PageBuilderComponent data = {productGroups}/>
+}<ProductDetailsPage/>
       
      </Router>
     </>
