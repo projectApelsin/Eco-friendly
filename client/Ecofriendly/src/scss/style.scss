@@ -89,7 +89,7 @@ $gray: rgba(197, 197, 197, 1);
     gap: 32px;
     margin-top: 15px;
     border-radius: 8px;
-    background: var(--Nika-dark_green, #023E00);
+    background: var(--Nika-dark_green, rgb(51, 108, 51));
   }
 
   &__group {
@@ -156,7 +156,8 @@ $gray: rgba(197, 197, 197, 1);
     max-width: 1280px;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
+    gap: 5vh;
   }
 
   &__item {
@@ -640,7 +641,7 @@ $gray: rgba(197, 197, 197, 1);
     font-size: 2vh;
     white-space: nowrap;
     height: 30px;
-line-height: 30px;
+    line-height: 30px;
   }
 
   &__input-text {
@@ -996,6 +997,11 @@ line-height: 30px;
   &__description {
     max-width: 580px;
     width: 100%;
+    white-space: pre-line; // Сохраняет переносы строк
+    word-wrap: break-word; // Перенос слов, если строка слишком длинная
+    overflow-wrap: break-word; // Перенос длинных слов
+    max-width: 70%; // Ограничение ширины текста
+    display: block; // Текст занимает всю строку
 
     &-title {
       font-weight: 600;

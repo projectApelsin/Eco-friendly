@@ -4,9 +4,9 @@ import SortComponent from "../sort/SortComponent";
 import "../../scss/style.scss";
 
 const ProductList = ({ productGroup }) => {
-  const { title, products } = productGroup;
+  const { title, productCards } = productGroup;
 
-  const [sortedProducts, setSortedProducts] = useState(products);
+  const [sortedProducts, setSortedProducts] = useState(productCards);
 
   const handleSorted = (sorted) => {
     setSortedProducts(sorted); // Обновляем состояние отсортированных продуктов
@@ -17,13 +17,13 @@ const ProductList = ({ productGroup }) => {
       <div className="list__header">
         <div className="list__header-container">
           <p className="list__header-title">{title}</p>
-          <SortComponent products={products} onSorted={handleSorted} />
+          <SortComponent products={productCards} onSorted={handleSorted} />
         </div>
       </div>
       <div className="list__items">
         <div className="list__items-container">
           {sortedProducts.map((product) => (
-            <div className="list__items-card" key={product.productId}>
+            <div className="list__items-card" key={product.id}>
               <ProductCard product={product} />
             </div>
           ))}

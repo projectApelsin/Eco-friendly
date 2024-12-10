@@ -55,7 +55,7 @@ const LoginForm = ({ onOpenRegister, onOpenForgotPassword, onClose, onOperationC
                             <div className="modal-form__header">
                                 <span className="modal-form__text">Вхід</span>
                                 <img
-                                    src={'img/close-icon.png'}
+                                    src={'/img/close-icon.png'}
                                     alt="close-icon"
                                     className="modal-form__close-icon"
                                     onClick={closeModal} // Добавлен обработчик на крестик

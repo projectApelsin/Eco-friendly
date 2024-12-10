@@ -15,7 +15,7 @@ const SortComponent = ({ products, onSorted }) => {
     } else if (criteria === "Цiною (по убыванию)") {
       sorted.sort((a, b) => b.price - a.price);
     } else if (criteria === "Назвою") {
-      sorted.sort((a, b) => a.name.localeCompare(b.name));
+      sorted.sort((a, b) => a.title.localeCompare(b.title));
     }
     return sorted;
   };

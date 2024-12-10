@@ -11,12 +11,12 @@ const PageBuilderComponent = ({ data }) => {
     if (!data) return <div>Данные отсутствуют</div>;
 
     // Одна группа продуктов
-    if (data.title && data.products) {
+    if (data.title && data.productCards) {
       return <ProductList productGroup={data} />;
     }
 
     // Массив групп продуктов
-    if (Array.isArray(data) && data.every(item => item.title && item.products)) {
+    if (Array.isArray(data) && data.every(item => item.title && Array.isArray(item.productCards))) {
       return data.map((group, index) => (
         <ProductGroup key={index} productGroup={group} />
       ));

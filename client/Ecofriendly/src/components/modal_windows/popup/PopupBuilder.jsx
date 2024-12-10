@@ -7,13 +7,13 @@ const PopupBuilder = ({ isOpen, onClose, type, mainText, subText }) => {
     const getImageSrc = () => {
         switch (type) {
             case 'success':
-                return 'img/success-icon.png';
+                return '/img/success-icon.png';
             case 'error':
-                return 'img/fail-icon.png';
+                return '/img/fail-icon.png';
             case 'auth-required':
-                return 'img/auth-icon.png';
+                return '/img/auth-icon.png'; 
             default:
-                return 'img/default-icon.png';
+                return '/img/-icon.png';
         }
     };
 
@@ -26,7 +26,7 @@ const PopupBuilder = ({ isOpen, onClose, type, mainText, subText }) => {
             <div className="modal-popup__container">
                 <div className="modal-popup__close-icon-group" onClick={onClose}>
                     <img
-                        src="img/close-icon.png"
+                        src="/img/close-icon.png"
                         alt="Close"
                         className="modal-popup__close-icon"
                     />

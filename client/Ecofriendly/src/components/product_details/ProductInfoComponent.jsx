@@ -19,7 +19,7 @@ const ProductInfo = ({
           <p className="product-info__characteristics-title">Характеристики</p>
           {characteristics.map((item, index) => (
             <div key={index} className="product-info__characteristics-row">
-              <p className="product-info__characteristics-row-name">{item.name}</p>
+              <p className="product-info__characteristics-row-name">{item.title}</p>
               <p className="product-info__characteristics-row-value">{item.value}</p>
             </div>
           ))}
@@ -34,7 +34,7 @@ ProductInfo.propTypes = {
   description: PropTypes.string.isRequired,
   characteristics: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
       value: PropTypes.string.isRequired,
     })
   ).isRequired,

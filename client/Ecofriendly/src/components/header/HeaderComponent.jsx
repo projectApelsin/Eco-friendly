@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../../scss/style.scss';
 import SearchComponent from './SearchComponent';
 import AuthModalManager from '../modal_windows/auth/AuthModalManager';
-import Cart from '../modal_windows/cart/Cart'; // Для корзины
+import Cart from '../modal_windows/cart/Cart';
 import PopupBuilder from '../modal_windows/popup/PopupBuilder';
+import ApiConfig from '../../config/ApiConfig'; // Для выполнения запросов
 
 const HeaderComponent = () => {
-  // Состояние для управления активным модальным окном
   const [activeModal, setActiveModal] = useState(null);
   const [popupProps, setPopupProps] = useState({ isOpen: false, type: '', mainText: '', subText: '' });
+  const navigate = useNavigate();
 
   const handleOperationComplete = (type, mainText, subText) => {
     setPopupProps({ isOpen: true, type, mainText, subText });
@@ -19,22 +20,30 @@ const HeaderComponent = () => {
     setPopupProps((prev) => ({ ...prev, isOpen: false }));
   };
 
-  // Функции для открытия разных модальных окон
-  const openAuthModal = () => setActiveModal('auth');
-  const openCartModal = () => setActiveModal('cart');
+  const navigateWithAuthCheck = async (path, callback) => {
+    try {
+      await ApiConfig.get(path); // Выполняем запрос, связанный с переходом
+      if (callback) callback(); // Если запрос успешен, выполняем действие
+    } catch (err) {
+      if (err.response?.status === 401) {
+        handleOperationComplete('auth-required', 'Авторизація потрібна!', 'Увійдіть, щоб виконати цю дію.');
+      } else {
+        console.error('Ошибка при проверке авторизации:', err.message);
+      }
+    }
+  };
 
-  // Функция для закрытия модальных окон
-  const closeModal = () => setActiveModal(null);
+  const openAuthModal = () => setActiveModal('auth');
+  const openCartModal = () => navigateWithAuthCheck('/api/customer/getProductsFromShoppingCart', () => setActiveModal('cart')); // Пример пути для проверки
+  const navigateToWishlist = () => navigateWithAuthCheck('/api/customer/wishlistPage', () => navigate('/wishlist'));
 
   useEffect(() => {
-    // Блокируем прокрутку только когда открыта корзина
     if (activeModal === 'cart') {
-      document.body.classList.add('lock-scroll'); // Блокируем прокрутку страницы
+      document.body.classList.add('lock-scroll');
     } else {
-      document.body.classList.remove('lock-scroll'); // Включаем прокрутку страницы
+      document.body.classList.remove('lock-scroll');
     }
 
-    // Очистка при размонтировании
     return () => document.body.classList.remove('lock-scroll');
   }, [activeModal]);
 
@@ -44,44 +53,40 @@ const HeaderComponent = () => {
         <div className="header__content">
 
           <div className="header__logo">
-            <Link to="#">
-              <img className="header__logo-image" src="img/logo.png" alt="Header logo" />
+            <Link to="/">
+              <img className="header__logo-image" src="/img/logo.png" alt="Header logo" />
             </Link>
           </div>
 
           <SearchComponent />
 
           <div className="header__actions">
-            <Link to="#">
+            <div onClick={navigateToWishlist} style={{ cursor: 'pointer' }}>
               <img
                 className="header__liked"
-                src="img/Heart.png"
+                src="/img/Heart.png"
                 alt="Liked products icon"
               />
-            </Link>
-            <Link to="#">
+            </div>
+            <div onClick={openCartModal} style={{ cursor: 'pointer' }}>
               <img
                 className="header__cart"
-                src="img/Icon.png"
+                src="/img/Icon.png"
                 alt="Cart icon"
-                onClick={openCartModal} // Открытие корзины
               />
-            </Link>
+            </div>
             <div onClick={openAuthModal} style={{ cursor: 'pointer' }}>
               <img
                 className="header__profile"
-                src="img/User.png"
+                src="/img/User.png"
                 alt="Profile icon"
               />
             </div>
 
-            {/* Модальные окна */}
             {activeModal === 'auth' && (
-              <AuthModalManager onClose={closeModal} onOperationComplete={handleOperationComplete} />
+              <AuthModalManager onClose={() => setActiveModal(null)} onOperationComplete={handleOperationComplete} />
             )}
-            {activeModal === 'cart' && (
-              <Cart onClose={closeModal} />
-            )}
+            {activeModal === 'cart' && <Cart onClose={() => setActiveModal(null)} />}
 
             <PopupBuilder {...popupProps} onClose={closePopup} />
           </div>

@@ -5,15 +5,16 @@ import '../../scss/style.scss';
 const ProductTop = ({
   productName,
   productDescription,
-  productVolume,
   productPrice,
-  productRating,
+  discountPrice,
+  productImage,
   productReviews,
-  productImages,
+  productRating,
+  productVolume,
+  productOtherImages,
 }) => {
   const [quantity, setQuantity] = useState(1);
 
-  // Функции для увеличения/уменьшения количества товара
   const increaseQuantity = () => setQuantity(quantity + 1);
   const decreaseQuantity = () => {
     if (quantity > 1) setQuantity(quantity - 1);
@@ -23,25 +24,17 @@ const ProductTop = ({
     <section className="product-top">
       <div className="product-top__container">
         <div className="product-top__container-left">
-          <div className="product-top__back">
-            <a href="#" className="product-top__back-button">
-              <img src="/img/back-arrow.svg" alt="Back" />
-            </a>
-          </div>
+          
           <div className="product-top__slider-container">
             <div className="product-top__slider">
-              <a href="#" className="product-top__slider-arrow product-top__slider-arrow--left">
-                <img src="/img/right-arrow.svg" alt="Previous" />
-              </a>
-              <img className="product-top__slider-image" src={productImages.main} alt={productName} />
-              <a href="#" className="product-top__slider-arrow product-top__slider-arrow--right">
-                <img src="/img/right-arrow.svg" alt="Next" />
-              </a>
+              
+              <img className="product-top__slider-image" src={"/img/" +productImage} alt={productName} />
+              
             </div>
             <div className="product-top__previews">
-              {productImages.previews.map((image, index) => (
+              {productOtherImages.map((img, index) => (
                 <div key={index} className="product-top__previews-item">
-                  <img className="product-top__previews-item-image" src={image} alt={`Preview ${index + 1}`} />
+                  <img className="product-top__previews-item-image" src={"/img/" + img} alt={`Preview ${index + 1}`} />
                 </div>
               ))}
             </div>
@@ -52,7 +45,16 @@ const ProductTop = ({
             <p className="product-top__info-title">{productName}</p>
             <p className="product-top__info-desc">{productDescription}</p>
             <p className="product-top__info-capacity">Об’єм: {productVolume}</p>
-            <p className="product-top__info-price">{productPrice} ₴</p>
+            <div className="productCard__item-actions-prices">
+              {discountPrice ? (
+                <>
+                  <span className="product-top__info-price-discount">{discountPrice} ₴</span>
+                  <span className="productCard__item-actions-old">{productPrice} ₴</span>
+                </>
+              ) : (
+                <span className="productCard__item-actions-value">{productPrice} ₴</span>
+              )}
+            </div>
             <div className="product-top__info-rating">
               <ul className="product-top__info-stars">
                 {Array.from({ length: 5 }).map((_, index) => (
@@ -86,7 +88,7 @@ const ProductTop = ({
               </svg>
               <span className="product-top__info-amount-value">{quantity}</span>
               <svg
-              onClick={increaseQuantity}
+                onClick={increaseQuantity}
                 className="product-top__info-amount-icon"
                 width="33"
                 height="32"
@@ -113,18 +115,16 @@ const ProductTop = ({
   );
 };
 
-// PropTypes для валидации данных
 ProductTop.propTypes = {
   productName: PropTypes.string.isRequired,
   productDescription: PropTypes.string.isRequired,
-  productVolume: PropTypes.string.isRequired,
   productPrice: PropTypes.number.isRequired,
-  productRating: PropTypes.number.isRequired,
+  discountPrice: PropTypes.number,
+  productImage: PropTypes.string.isRequired,
   productReviews: PropTypes.number.isRequired,
-  productImages: PropTypes.shape({
-    main: PropTypes.string.isRequired,
-    previews: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }).isRequired,
+  productRating: PropTypes.number.isRequired,
+  productVolume: PropTypes.string.isRequired,
+  productOtherImages: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default ProductTop;
