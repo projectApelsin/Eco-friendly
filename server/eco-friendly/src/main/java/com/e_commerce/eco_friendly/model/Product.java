@@ -73,6 +73,22 @@ public class Product {
     @JoinColumn(name = "product_info_id")
     private ProductInfo productInfo;
 
+    @Transient
+    public Integer getAverageRating() {
+        if (reviews == null || reviews.isEmpty()) {
+            return 0; // Возвращаем 0, если отзывов нет
+        }
+
+        // Рассчитываем средний рейтинг
+        double average = reviews.stream()
+                .mapToInt(Review::getRating) // Предполагается, что в `Review` есть поле `rating`
+                .average()
+                .orElse(0);
+
+        // Округляем до ближайшего целого числа и приводим к диапазону 1–5
+        return Math.max(1, Math.min(5, (int) Math.round(average)));
+    }
+
     @Column(name = "discount_percent", nullable = false, precision = 19, scale = 2)
     private BigDecimal discountPercent;
 

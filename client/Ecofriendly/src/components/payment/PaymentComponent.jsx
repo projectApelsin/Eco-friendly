@@ -13,7 +13,6 @@ const PaymentComponent = ({ purchaseProductsId, price, quantity, formData, onOpe
         postalOffice: formData.mailOfficeNumber,
         
       };
-
       try {
         const response = await ApiConfig.post("/api/customer/createOrder", orderData);
         const { data, signature } = response.data;

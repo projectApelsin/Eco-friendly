@@ -50,7 +50,7 @@ public class PageService {
         productDetailsPageDTO.setDescription(product.getDescription());
         productDetailsPageDTO.setPrice(product.getPrice());
         productDetailsPageDTO.setShortDescription(product.getShortDescription());
-        productDetailsPageDTO.setRating(product.getRating());
+        productDetailsPageDTO.setRating(product.getAverageRating());
         productDetailsPageDTO.setImage(product.getMainImage());
         productDetailsPageDTO.setOtherImage(product.getOtherPictureUrl());
         List<CharacteristicDTO> characteristicDTOList = new ArrayList<>();

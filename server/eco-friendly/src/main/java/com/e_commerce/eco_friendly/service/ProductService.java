@@ -76,7 +76,7 @@ public class ProductService {
         dto.setPrice(product.getPrice());
         dto.setDiscountPrice(calculateDiscountPrice(product.getPrice(), product.getDiscountPercent()));
 
-        dto.setRating(product.getRating());
+        dto.setRating(product.getAverageRating());
         return dto;
     }
 
