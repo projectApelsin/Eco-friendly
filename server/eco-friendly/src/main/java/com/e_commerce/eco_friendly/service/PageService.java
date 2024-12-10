@@ -1,5 +1,6 @@
 package com.e_commerce.eco_friendly.service;
 
+import com.e_commerce.eco_friendly.Enum.GroupType;
 import com.e_commerce.eco_friendly.api.DTO.CategoryDTO;
 import com.e_commerce.eco_friendly.api.DTO.page.ProductDetailsPageDTO;
 import com.e_commerce.eco_friendly.api.DTO.product.CharacteristicDTO;
@@ -75,18 +76,26 @@ public class PageService {
 
     // TODO реализовать
     public List<ProductGroupDTO> getHomePage(Integer customerId) {
-
         List<ProductGroupDTO> productGroupDTOList = new ArrayList<>();
 
-        productGroupDTOList.add(ProductService.toProductGroupDTO(productRepository.findPopularProducts(),
-                "Бестселлери", null));
-        productGroupDTOList.add(ProductService.toProductGroupDTO(productRepository
-                .findDiscountedProducts(),"Акції", null));
-        productGroupDTOList.add(ProductService.toProductGroupDTO(productRepository
-                .findRecommendedProducts(customerId),"Рекомендовані товари", null));
+        productGroupDTOList.add(ProductService.toProductGroupDTO(
+                productRepository.findPopularProducts(),
+                "Бестселлери", null, GroupType.BESTSELLER
+        ));
 
-        return  productGroupDTOList;
+        productGroupDTOList.add(ProductService.toProductGroupDTO(
+                productRepository.findDiscountedProducts(),
+                "Акції", null, GroupType.DISCOUNT
+        ));
+
+        productGroupDTOList.add(ProductService.toProductGroupDTO(
+                productRepository.findRecommendedProducts(customerId),
+                "Рекомендовані товари", null, GroupType.RECOMMENDATION
+        ));
+
+        return productGroupDTOList;
     }
+
 
     public ProductGroupDTO getHomePageCategoryDetails(String criteria,  Integer customerId){
         switch (criteria){
@@ -108,19 +117,22 @@ public class PageService {
 
         List<ProductGroupDTO> productGroupDTOList = new ArrayList<>();
         subcategories.forEach(subcategory -> {
-            List<Product> filteredProducts = productRepository.
-                    findProductsBySubcategoryAndCategory(subcategory.getId(), categoryId);
+            List<Product> filteredProducts = productRepository.findProductsBySubcategoryAndCategory(subcategory.getId(), categoryId);
 
-             productGroupDTOList.add(ProductService
-                    .toProductGroupDTO(filteredProducts,subcategory.getTitle() ,subcategory.getId()));
+            productGroupDTOList.add(ProductService.toProductGroupDTO(
+                    filteredProducts, subcategory.getTitle(), subcategory.getId(), GroupType.SUBCATEGORY
+            ));
         });
         return productGroupDTOList;
     }
     // TODO реализовать
     public ProductGroupDTO getSubcategoryPage(Integer subcategoryId) {
         Subcategory subcategory = subcategoryRepository.findById(subcategoryId).get();
-        return ProductService.toProductGroupDTO(subcategory.getProducts(), subcategory.getTitle(),subcategoryId);
+        return ProductService.toProductGroupDTO(
+                subcategory.getProducts(), subcategory.getTitle(), subcategoryId, GroupType.SUBCATEGORY
+        );
     }
+
     // TODO реализовать
     public ProductGroupDTO getWishlistPage(Integer customerId) {
         Customer customer = customerRepository.findById(customerId).get();

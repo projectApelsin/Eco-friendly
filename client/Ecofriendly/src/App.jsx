@@ -19,6 +19,7 @@ import SearchResultPage from './pages/SearchResultPage/SearchResultPage'
 import SubcategoryPage from './pages/SubcategoryPage/SubcategoryPage'
 import CategoryPage from './pages/CategoryPage/CategoryPage'
 import WishlistPage from './pages/WishlistPage/WishlistPage'
+import HomePageCategoryDetails from './pages/HomePage/HomePageCategoryDetails'
 
 
 const App = () => {
@@ -27,6 +28,8 @@ const App = () => {
       <Routes>
         {/* Главная страница */}
         <Route path="/" element={<HomePage />} />
+
+        <Route path='/homePageCategoryDetails/:query' element={<HomePageCategoryDetails/>}/>
 
         {/* Страница результатов поиска */}
         <Route path="/search/:query" element={<SearchResultPage />} />

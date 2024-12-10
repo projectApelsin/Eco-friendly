@@ -1,5 +1,6 @@
 package com.e_commerce.eco_friendly.service;
 
+import com.e_commerce.eco_friendly.Enum.GroupType;
 import com.e_commerce.eco_friendly.Enum.ProductType;
 import com.e_commerce.eco_friendly.api.DTO.ReviewDTO;
 import com.e_commerce.eco_friendly.api.DTO.page.ProductDetailsPageDTO;
@@ -52,8 +53,7 @@ public class ProductService {
         }
         return "";
     }
-
-    public static ProductGroupDTO toProductGroupDTO(List<Product> products, String groupTitle, Integer id) {
+    public static ProductGroupDTO toProductGroupDTO(List<Product> products, String groupTitle, Integer id, GroupType groupType) {
         // Преобразуем список продуктов в список ProductCardDTO
         List<ProductCardDTO> productCardDTOs = products.stream()
                 .map(ProductService::toProductCardDTO) // Преобразование каждого Product в ProductCardDTO
@@ -61,12 +61,19 @@ public class ProductService {
 
         // Создаем ProductGroupDTO
         ProductGroupDTO productGroupDTO = new ProductGroupDTO();
-        productGroupDTO.setId(id); // Устанавливаем id в null
+        productGroupDTO.setId(id); // Устанавливаем id
         productGroupDTO.setTitle(groupTitle); // Устанавливаем заголовок
         productGroupDTO.setProductCards(productCardDTOs); // Устанавливаем список продуктов
+        productGroupDTO.setGroupType(groupType); // Устанавливаем GroupType
 
         return productGroupDTO;
     }
+
+
+    public static ProductGroupDTO toProductGroupDTO(List<Product> products, String groupTitle, Integer id) {
+        return toProductGroupDTO(products, groupTitle, id, null); // По умолчанию GroupType = null
+    }
+
 
     public static ProductCardDTO toProductCardDTO(Product product) {
         ProductCardDTO dto = new ProductCardDTO();

@@ -1,5 +1,6 @@
 package com.e_commerce.eco_friendly.api.DTO.product;
 
+import com.e_commerce.eco_friendly.Enum.GroupType;
 import lombok.Data;
 
 import java.util.List;
@@ -12,6 +13,16 @@ public class ProductGroupDTO {
     private String title;
 
     private List<ProductCardDTO> productCards;
+
+    private GroupType groupType;
+
+    public void setGroupType(GroupType groupType) {
+        this.groupType = groupType;
+    }
+
+    public GroupType getGroupType() {
+        return groupType;
+    }
 
     public Integer getId() {
         return id;

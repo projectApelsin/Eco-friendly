@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Для маршрутизации
 import ApiConfig from "../../config/ApiConfig"; // Импорт API клиента
+import TestModal from "../modal_windows/test_form/TestFormComponent"; // Импорт тестового модального окна
 import "../../scss/style.scss";
 
 const CategoryComponent = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isTestOpen, setTestOpen] = useState(false); // Управление тестовым окном
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -27,13 +29,19 @@ const CategoryComponent = () => {
   if (loading) return <div>Загрузка категорий...</div>;
   if (error) return <div>{error}</div>;
 
+  const openTest = () => {
+    setTestOpen(true);
+  };
+
+  const closeTest = () => {
+    setTestOpen(false);
+  };
+
   return (
     <section className="categories">
-      <div className="categories__banner">
-        {/* Баннер с общим переходом */}
-        <Link to="/">
-          <img src="/banner.png" alt="Banner" />
-        </Link>
+      <div className="categories__banner" onClick={openTest}>
+        {/* Баннер открывает тест */}
+        <img src="/banner.png" alt="Banner" />
       </div>
       <div className="categories__container">
         <div className="categories__content">
@@ -48,6 +56,9 @@ const CategoryComponent = () => {
           ))}
         </div>
       </div>
+
+      {/* Модальное окно теста */}
+      {isTestOpen && <TestModal onClose={closeTest} />}
     </section>
   );
 };
