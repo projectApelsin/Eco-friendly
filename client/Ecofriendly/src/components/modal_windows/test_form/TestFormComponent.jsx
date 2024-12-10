@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import "../../../scss/style.scss";
 import Modal from "../Modal";
 import ApiConfig from "../../../config/ApiConfig";
+import PopupBuilder from "../popup/PopupBuilder";
 
 const TestModal = ({ onClose }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedOption, setSelectedOption] = useState(null);
   const [answers, setAnswers] = useState({}); // Для хранения ответов
+  const [popupProps, setPopupProps] = useState({ isOpen: false, type: "", mainText: "", subText: "" });
 
   const steps = [
     {
@@ -66,7 +68,17 @@ const TestModal = ({ onClose }) => {
       await ApiConfig.post("/api/customer/addProductInfoToCustomer", answers);
       onClose(); // Закрываем модальное окно после успешного запроса
     } catch (err) {
-      console.error("Ошибка отправки данных:", err.message);
+      if (err.response?.status === 403) {
+        setPopupProps({
+          isOpen: true,
+          type: "error",
+          mainText: "Помилка доступу",
+          subText: "У вас недостатньо прав для виконання цієї дії.",
+        });
+        onClose();
+      } else {
+        console.error("Ошибка отправки данных:", err.message);
+      }
     }
   };
 
@@ -136,19 +148,22 @@ const TestModal = ({ onClose }) => {
   };
 
   return (
-    <Modal isOpen={true} onClose={onClose}>
-      <div className="modal-form-test__container">
-        <div className="modal-form-test__header-group">
-          <img
-            src={steps.find((s) => s.id === currentStep).progressImage}
-            alt={`Прогрес ${currentStep}`}
-            className="modal-form-test__progress-image"
-          />
+    <>
+      <Modal isOpen={true} onClose={onClose}>
+        <div className="modal-form-test__container">
+          <div className="modal-form-test__header-group">
+            <img
+              src={steps.find((s) => s.id === currentStep).progressImage}
+              alt={`Прогрес ${currentStep}`}
+              className="modal-form-test__progress-image"
+            />
+          </div>
+          <div className="modal-form-test__content">{renderStepContent()}</div>
+          {renderNavigation()}
         </div>
-        <div className="modal-form-test__content">{renderStepContent()}</div>
-        {renderNavigation()}
-      </div>
-    </Modal>
+      </Modal>
+      <PopupBuilder {...popupProps} onClose={() => setPopupProps({ ...popupProps, isOpen: false })} />
+    </>
   );
 };
 

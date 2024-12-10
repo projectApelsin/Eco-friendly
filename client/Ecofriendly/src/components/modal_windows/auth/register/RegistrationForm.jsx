@@ -7,7 +7,7 @@ const RegistrationForm = ({ onClose, onOperationComplete }) => {
         firstName: '',
         lastName: '',
         email: '',
-        phoneNumber: '',
+        phoneNumber: '', // Используем корректное имя свойства
         password: '',
         confirmPassword: '',
         consentData: false,
@@ -119,7 +119,7 @@ const RegistrationForm = ({ onClose, onOperationComplete }) => {
                                 <div className="modal-form__input-group">
                                     <div className="modal-form__input-header-text">Номер телефону</div>
                                     <textarea
-                                        name="phone"
+                                        name="phoneNumber" // Используем корректное имя свойства
                                         value={formData.phoneNumber}
                                         onChange={handleChange}
                                         className="modal-form__input"
